@@ -1,4 +1,9 @@
 ({
+    /*
+     * Calls the SingleTrainee function in the apex controller and populates the 
+     * aura attribute with the returned value.
+     * *Return value is hardcoded at present*
+     */ 
 	getTrainee : function(component, event, helper) {
         var action = component.get("c.SingleTrainee");
         action.setCallback(this, function(response){
@@ -15,6 +20,10 @@
         $A.enqueueAction(action);
 	},
     
+    /*
+     * Not in use, intended to call the MultipleTrainees function from the apex controller
+     * *Will no be used for the trainee component, but may be used for the overall page*
+     */ 
     getTrainees : function(component, event, helper) {
         var action = component.get("c.MultipleTrainees");
         action.setCallback(this, function(response) {
