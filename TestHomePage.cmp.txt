@@ -1,0 +1,41 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <!-- Some pre styling to section the dropdowns evenly on the page.
+		The entire page is wrapped inside a slds grid. 12 is the max columns for each row.-->
+    <div class = "slds-grid slds-wrap">
+    	<div class="slds-size_1-of-12">
+            <c:UserDetails/>  <!--This is the child component that handles the drop down.-->
+   		</div>
+        <div>
+         &nbsp; <!--This adds a blank space on the same line. Needed to help separate drop downs.-->
+        </div>
+        
+        <!--From here we can simply recall the components, or call another component to be in the same row.-->
+        
+        <div class="slds-size_1-of-12">
+            <c:UserDetails/>
+   		</div>
+        <div>
+         &nbsp;
+        </div>
+        <div class="slds-size_1-of-12">
+            <c:UserDetails/>
+   		</div>
+        <div>
+         &nbsp;
+        </div>
+    </div>
+    <hr/>
+    
+    <!--The below just demonstrates how we can set another row and style it.-->
+ 		
+        <div class="slds-grid slds-wrap">
+    		<div class="slds-size_1-of-12">
+    			<div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">.slds-size_1-of-12</div>
+ 		 	</div>
+  			<div class="slds-size_1-of-12">
+    			<div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">.slds-size_1-of-12</div>
+  			</div>
+        </div>
+    <hr/>
+    
+</aura:component>

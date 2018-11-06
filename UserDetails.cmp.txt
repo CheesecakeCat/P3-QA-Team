@@ -1,0 +1,25 @@
+<aura:component controller="ContactsController">
+    
+    <!--Initialize a way for a string list to be read into this component.
+		Pay no mind to the contacts attribute. It was used for a table update.-->
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    <aura:attribute name="contacts" type="Contact[]" default="[]"/>
+    
+    <!--Calls the event handler to load the options into the combobox-->
+    <aura:handler name="init" value="{! this }" action="{! c.loadOptions }"/>
+    
+    <!--The legendary combobox!!! This is the dropdown, and it creates the dropdown items based on 
+		The Javascript controller. Placeholder is what's shown inside the dropdown before selecting an
+		option. Onchange will be what we'll use to display the page, but there's no method for it yet.
+		Options is where the list is being pulled from via data binding. -->
+    <lightning:combobox aura:id="selectItem" name="status"
+                        placeholder="Choose Batch"
+                        value="new"
+                        dropdownAlignment="right"
+                        variant="standard"
+                        messageWhenValueMissing="You Must Select the Value"
+                        onchange="{!c.handleOptionSelected}"
+                        options="{!v.statusOptions}"/>
+    
+   
+</aura:component>
