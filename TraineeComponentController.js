@@ -27,8 +27,14 @@
         $A.enqueueAction(action);
     },
     
+    /*
+    * Whenever the QC assessment icon is clicked, this function checks the current
+    * value of the icon attribute and adjusts the value accordingly to update the 
+    * icon.
+    * This will eventually need to update the database from within the if statement.
+    */
     handleClick : function(component, event, helper) {
-        //In each block, the corresponding QC score should be passed to the database to be saved.
+        
         if(component.get("v.icon") == "utility:question")
         {
             component.set("v.icon", "utility:favorite");
@@ -54,6 +60,6 @@
   			component.set("v.icon", "utility:question");
             component.set("v.iconLabel", "Click to change Trainee Assessment");
         }
-        //Call recalcuateBatch and refresh the overall feedback.
+        //Call recalcuateBatch to refresh the overall feedback.
     }
 })
