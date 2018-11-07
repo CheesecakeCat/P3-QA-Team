@@ -1,0 +1,8 @@
+public class QATraineeRowController {
+	public static Id TraineeId = '003f400000gA6uxAAC';
+	@AuraEnabled
+    public static Contact SingleTrainee()
+    {
+        return [SELECT FirstName, LastName, Id FROM Contact WHERE Id = :TraineeId];
+    }
+}
