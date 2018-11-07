@@ -44,29 +44,29 @@
     */
     handleClick : function(component, event, helper) {
         
-        if(component.get("v.icon") == "utility:question")
+        if(component.get("v.icon") == "fa fa-question-circle fa-2x")
         {
-            component.set("v.icon", "utility:favorite");
+            component.set("v.icon", "fa fa-star fa-2x");
             component.set("v.iconLabel", "Excellent");
         }
-        else if(component.get("v.icon") == "utility:favorite")
+        else if(component.get("v.icon") == "fa fa-star fa-2x")
         {
-            component.set("v.icon", "utility:smiley_and_people");
+            component.set("v.icon", "fa fa-smile-o fa-2x");
             component.set("v.iconLabel", "Good");
         }
-        else if(component.get("v.icon") == "utility:smiley_and_people")
+        else if(component.get("v.icon") == "fa fa-smile-o fa-2x")
         {
-            component.set("v.icon", "utility:sentiment_neutral");
+            component.set("v.icon", "fa fa-meh-o fa-2x");
             component.set("v.iconLabel", "Fair");
         }
-        else if(component.get("v.icon") == "utility:sentiment_neutral")
+        else if(component.get("v.icon") == "fa fa-meh-o fa-2x")
         {
-            component.set("v.icon", "utility:sentiment_negative");
+            component.set("v.icon", "fa fa-frown-o fa-2x");
             component.set("v.iconLabel", "Poor");
         }
         else
         {
-  			component.set("v.icon", "utility:question");
+  			component.set("v.icon", "fa fa-question-circle fa-2x");
             component.set("v.iconLabel", "Click to change Trainee Assessment");
         }
         //Call recalcuateBatch to refresh the overall feedback.

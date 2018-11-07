@@ -1,17 +1,15 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="TestStudentComponentController">
-    <head>
-        <link id="test" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"/>
-    </head>
+    <ltng:require styles="/resource/fontAwesome/font-awesome-4.7.0/css/font-awesome.css"/>
     
     <!-- Attributes, note that trainees is currently not in use -->
     <aura:attribute name="trainee" type="Contact"/>
     <aura:attribute name="trainees" type="Contact[]"/>
-    <aura:attribute name="icon" type="String" default="utility:question"/>
+    <aura:attribute name="icon" type="String" default="fa fa-question-circle fa-2x"/>
     <aura:attribute name="iconLabel" type="String" default="Click to change Trainee Assessment"/>
     <aura:handler name="init" value="{!this}" action="{!c.getTrainee}"/>
     
     <hr/>
-    <div class="slds-grid slds-wrap">
+    <div id="d" class="slds-grid slds-wrap">
         <!-- Trainee Name display -->
     	<div class="slds-size_1-of-4">
     		<p style="padding-top:25px; padding-left:30px">{!v.trainee.LastName}, {!v.trainee.FirstName}</p>
@@ -23,13 +21,13 @@
     	</div>
         <!-- QC Assessment Icon -->
         <div class="slds-size_1-of-4" style="padding-top:20px">
-        	<lightning:icon id="assessmentIcon" label="test" title="{!v.iconLabel}" iconName="{!v.icon}" style="color:red" onclick="{!c.handleClick}"></lightning:icon>
+            <button id="b" onclick="{!c.handleClick}">
+            	<i class="{!v.icon}"></i>
+            </button>
         </div>
         <!-- Notes on trainee section -->
     	<div class="slds-size_1-of-4">
         	<lightning:textArea placeholder="{!'Notes on ' + v.trainee.LastName + ', ' + v.trainee.FirstName}"/>
         </div>
-        <i class="fas fa-stroopwafel"></i>
-        <lightning:icon src="/assets/icons/standard-sprite/svg/test.svg#icon-heart" alternativeText="Oops"/>
     </div>
 </aura:component>

@@ -1,3 +1,28 @@
-.THIS #assessmentIcon svg {
-    cursor:pointer;
+.THIS.fa-smile, .THIS.fa-meh-o, .THIS.fa-frown-o, .THIS.fa-star {
+    color : #B9B9BA;
+}
+
+/*Colors for the Icons*/
+.THIS#d #b .fa-smile-o { color: #18ad18!important; }
+.THIS#d #b .fa-meh-o{ color: #f9e900 !important; }
+.THIS#d #b .fa-frown-o { color: #ea2825!important; }
+.THIS#d #b .fa-star { color: #393fef !important; }
+.THIS#d #b .fa-question-circle { color: #F26925;}
+
+.THIS.fa-smile-o:hover { color: #81f575; }
+.THIS.fa-meh-o:hover { color: #fdff9e; } 
+.THIS.fa-frown-o:hover { color: #ff7575; }
+.THIS.fa-star:hover { color: #7972ff; }
+
+/*Removes button background,border,outline*/
+.THIS#d #b {
+    background: none;
+    border: none;
+}
+
+.THIS#d #b:focus {
+    outline: none;
+    background: none;
+    border: none;
+    
 }
