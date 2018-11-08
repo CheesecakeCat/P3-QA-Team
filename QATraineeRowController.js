@@ -23,7 +23,12 @@
         });
         $A.enqueueAction(action);
 	},
-    
+	
+	/*
+	 * This function retrieves caliber note information from the apex controller
+	 * based on the week number and the trainee and applies the QC Status and Note
+	 * Content values to the component.
+	 */     
     getComponentInfo : function(component, event, helper) {
         var action = component.get("c.getCaliberNote");
         action.setParams({
@@ -35,7 +40,33 @@
             if(state === "SUCCESS")
             {
                 component.set("v.NoteContent", response.getReturnValue().Note_Content__c);
-            }
+                component.set("v.QCStatus", response.getReturnValue().QC_Status__c);
+                if(component.get("v.QCStatus") == "Superstar")
+                {
+                    component.set("v.iconLabel", "Excellent");
+                    component.set("v.icon", "fa fa-star fa-2x");
+                }
+                else if(component.get("v.QCStatus") == "Good")
+                {
+                 	component.set("v.iconLabel", "Good");
+                    component.set("v.icon", "fa fa-smile-o fa-2x");
+                }
+                else if(component.get("v.QCStatus") == "Average")
+                {
+                    component.set("v.iconLabel", "Fair");
+                    component.set("v.icon", "fa fa-meh-o fa-2x");    
+                }
+                else if(component.get("v.QCStatus") == "Poor")
+                {
+                    component.set("v.iconLabel", "Poor");
+                    component.set("v.icon", "fa fa-frown-o fa-2x");
+                }
+                else
+                {
+                    component.set("v.iconLabel", "Click to update your feedback.");
+                    component.set("v.icon", "fa fa-question-circle fa-2x");
+                }
+         	}
         });
         $A.enqueueAction(action);
     },

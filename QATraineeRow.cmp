@@ -23,7 +23,7 @@
         <!-- QC Assessment Icon -->
         <div class="slds-size_1-of-8" style="padding-top:20px">
             <button id="b" onclick="{!c.handleClick}" onblur="{!c.handleBlurOnQC}">
-            	<i class="{!v.icon}"></i>
+            	<i class="{!v.icon}" title="{!v.iconLabel}"></i>
             </button>
         </div>
         <!-- Notes on trainee section -->
