@@ -1,23 +1,26 @@
 ({
+    // Use handleActive to set the active content, see details in the helper
     handleActive: function (cmp, event, helper) {
         helper.handleActive(cmp, event);
     },
+    // Creates a new tab
      addTab: function(component, event) {
+         // Find how many 'extra' tabs exist already, then adjust the number to
+         // match what the new tab's label and Id will be
          var i = component.get("v.moretabs").length;
-         // i starts as the number of 'added' tabs, in order to be able to use it to create the
-         // new tab labels and ids, we add 2, since it starts at 0.
-         //console.log(i);
-         i = i+2;  
+         i = i+2; // if there are no extra tabs, i starts at 0, so first created tab should be Week 2
         $A.createComponent("lightning:tab", {
-            // first create the new tab with the label and id to match
+            // first create the new tab component, give it the same format as the other tabs
             "label": "Week "+i,
             "id": "Week"+i,
+            "class": "slds-m-left_large, weekly-tab",
             "onactive": component.getReference("c.addContent")
         }, function (newTab, status, error) {
             // add that tab!
             if (status === "SUCCESS") {
+                // this way, the new tab is appened to moretabs, instead of just overriding. 
                 var body = component.get("v.moretabs");
-                body.push(newTab) //Add to the attribute! not just replace.
+                body.push(newTab)
                 component.set("v.moretabs", body);
             } else {
                 throw new Error(error);
