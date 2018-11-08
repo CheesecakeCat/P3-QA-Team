@@ -1,8 +1,8 @@
 public class QATraineeRowController {
-	public static Id TraineeId = '003f400000gA6uxAAC';
 	@AuraEnabled
-    public static Contact SingleTrainee()
+    public static Training_Assignment__c SingleTrainee(Id Trainee_Id) //This becomes trainingAssignmentID
     {
-        return [SELECT FirstName, LastName, Id FROM Contact WHERE Id = :TraineeId];
+        return [SELECT Id, Name, Contact__r.FirstName, Contact__r.LastName FROM Training_Assignment__c 
+                WHERE Id = :Trainee_Id LIMIT 1];
     }
 }

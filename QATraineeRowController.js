@@ -6,10 +6,13 @@
      */ 
 	getTrainee : function(component, event, helper) {
         var action = component.get("c.SingleTrainee");
+        action.setParams({
+            Trainee_Id : component.get("v.traineeID")
+        });
         action.setCallback(this, function(response){
            var state = response.getState();
             if(state === "SUCCESS") {
-                component.set("v.trainee", response.getReturnValue());
+                component.set("v.trainingAssignment", response.getReturnValue());
                 console.log(response.getReturnValue());
             }
             else
