@@ -1,26 +1,11 @@
 ({
-    
-    //load default data upon opening reports page
+	//load default data upon opening reports page
     doInitYears : function(component, event, helper){
         var actionInit = component.get("c.GetAllYearsWithBatches");
         actionInit.setCallback(this, function(response){
-            
-        //creates an empty list to store integers.
-        var options = [
-        ];
-            
-        var state = response.getState();
-        if (state === "SUCCESS"){
-                
-                //takes the returned integer values from the function "GetAllYearsWithBatches"
-                var arr = response.getReturnValue() ; 
-                console.log(arr);
-                //Pushes the data into our empty list "options".
-                arr.forEach(function(element) {
-                    options.push({ value: element, label: element});
-                });
-                
-                component.set("v.allYears", options);
+            var state = response.getState();
+            if (state === "SUCCESS"){
+                component.set("v.allYears", response.getReturnValue());
             }
         });
         $A.enqueueAction(actionInit);
@@ -28,7 +13,7 @@
     },
     //update the year label when user chooses a year
 	updateYearLabel : function(component, event, helper) {
-		var menuItemLabel = event.getSource().get("v.placeholder"); 
+		var menuItemLabel = event.getSource().get("v.label"); 
         component.set("v.yearLabel", menuItemLabel);
         helper.changeBatchesForYear(component);
 	},
