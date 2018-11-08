@@ -6,6 +6,15 @@ public class QATraineeRowController {
                 WHERE Id = :Training_Assignment_Id LIMIT 1];
     }
     @AuraEnabled
+    public static Caliber_Note__c getCaliberNote(Id Training_Assignment_Id, Integer Week_Number)
+    {
+        Training_Assignment__c assignment = [SELECT Id, Contact__r.Id FROM Training_Assignment__c
+                      						 WHERE Id = :Training_Assignment_Id];
+        Id Trainee_Id = assignment.Contact__r.Id;
+        return [SELECT QC_Status__c, Note_Content__c FROM Caliber_Note__c 
+                WHERE Contact__c = :Trainee_Id];
+    }
+    @AuraEnabled
     public static void SaveTraineeNote(Id Training_Assignment_Id, String Note, Integer Week_Number)
     {
         Training_Assignment__c assignment = [SELECT Id, Contact__r.Id FROM Training_Assignment__c

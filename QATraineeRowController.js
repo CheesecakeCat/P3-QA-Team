@@ -1,10 +1,10 @@
 ({
     /*
-     * Calls the SingleTrainee function in the apex controller and populates the 
+     * Calls the GetTraineeInfo function in the apex controller and populates the 
      * aura attribute with the returned value.
      * *Return value is hardcoded at present*
-     */ 
-	getTrainee : function(component, event, helper) {
+     */
+    getTrainee : function(component, event, helper) {
         /*The init function needs to populate the component with existing data*/
         var action = component.get("c.GetTraineeInfo");
         action.setParams({
@@ -23,6 +23,22 @@
         });
         $A.enqueueAction(action);
 	},
+    
+    getComponentInfo : function(component, event, helper) {
+        var action = component.get("c.getCaliberNote");
+        action.setParams({
+            Training_Assignment_Id : component.get("v.trainingAssignmentID"),
+            Week_Number : component.get("v.WeekNumber")
+        });
+        action.setCallback(this, function(response) {
+           var state = response.getState();
+            if(state === "SUCCESS")
+            {
+                component.set("v.NoteContent", response.getReturnValue().Note_Content__c);
+            }
+        });
+        $A.enqueueAction(action);
+    },
     
     /*
     * Whenever the QC assessment icon is clicked, this function checks the current
@@ -87,7 +103,6 @@
             }
         });
         $A.enqueueAction(action);
-        alert(component.get("v.NoteContent"));
     },
     
     /*
@@ -113,6 +128,5 @@
             }
         });
         $A.enqueueAction(action);
-        alert(component.get("v.QCStatus"));
     }
 })
