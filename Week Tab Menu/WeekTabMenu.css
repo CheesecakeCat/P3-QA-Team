@@ -13,7 +13,8 @@
     transition: ease-in-out 0.4s;
     color: #474C55;   /* primary dark gray */
     font-size: 14px;
-    font-weight: 700;    
+    font-weight: 700;
+	text-decoration:none;    
 }
 
 .THIS .slds-tabs_default__item:hover, .THIS .slds-tabs--default__item:hover{
