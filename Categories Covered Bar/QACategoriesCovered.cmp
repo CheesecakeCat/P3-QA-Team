@@ -1,0 +1,7 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="categories" type="String"/>
+    
+    <p> Categories covered this week: {!v.categories} </p>
+    
+</aura:component>
