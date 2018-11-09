@@ -1,0 +1,27 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <ltng:require styles="/resource/fontAwesome/font-awesome-4.7.0/css/font-awesome.css"/>
+    <aura:attribute name="qcValue" type="Integer" default="0"/>
+    <aura:attribute name="iconType" type="String" default="fa fa-question-circle fa-2x"/>
+   <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> -->
+	<div >
+    	
+    </div>
+    <button id="b" onclick="{!c.changeIcon}">
+    	<i class="{!v.iconType}" ></i>
+    </button>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <!--<lightning:icon aura:id="icon" class="iconC" iconName="{!v.iconType}" alternativeText="Great" size="large" /> -->
+        <!--<lightning:icon class="icon2" src="{!$Resource.awesomeIcons + 'smile.svg#smileIcon'}" alternativeText="Great" size="large"/>
+        <lightning:icon class="icon1" src="/resource/awesomeIcons/GMURGB.jpg" alternativeText="Great" size="large"/>
+        <img src="{!$Resource.awesomeIcons + '/GMURGB.jpg'}" />
+        <img src="/resource/awesomeIcons/GMURGB.jpg" /> -->
+    
+</aura:component>

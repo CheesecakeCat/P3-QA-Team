@@ -1,0 +1,14 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="QAController" >
+	<aura:attribute name="yearOptions" type="List"/>
+    <aura:attribute name="currentYear" type="String"/>
+    <aura:attribute name="trainingList" type="Training__c[]"/>
+    <aura:attribute name="currentTraining" type="Training__c" />
+    <aura:attribute name="trainingOptions" type="String[]"/>
+    <aura:attribute name="trainingValue" type="String" default="a0Df4000005wdTPE" />
+    
+    <aura:handler name="init" value="{!this }" action="{!c.init }"/>
+
+    <lightning:combobox aura:id="selectYear" value="{!v.currentYear}" placeholder="Year" options="{!v.yearOptions }" onchange="{! c.updateYearLabel }"/>
+    <lightning:combobox aura:id="selectTraining" value="{!v.trainingValue}" placeholder="Trainer" options="{!v.trainingOptions }" onchange="{!c.updateTraining}"/>
+	<p>{!v.currentTraining.id}</p>
+</aura:component>
