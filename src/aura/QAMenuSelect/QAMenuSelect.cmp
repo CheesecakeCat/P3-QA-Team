@@ -4,11 +4,13 @@
     <aura:attribute name="trainingList" type="Training__c[]"/>
     <aura:attribute name="currentTraining" type="Training__c" />
     <aura:attribute name="trainingOptions" type="String[]"/>
-    <aura:attribute name="trainingValue" type="String" default="a0Df4000005wdTPE" />
-    
+    <aura:attribute name="trainingValue" type="String" />
     <aura:handler name="init" value="{!this }" action="{!c.init }"/>
 
-    <lightning:combobox aura:id="selectYear" value="{!v.currentYear}" placeholder="Year" options="{!v.yearOptions }" onchange="{! c.updateYearLabel }"/>
-    <lightning:combobox aura:id="selectTraining" value="{!v.trainingValue}" placeholder="Trainer" options="{!v.trainingOptions }" onchange="{!c.updateTraining}"/>
-	<p>{!v.currentTraining.id}</p>
+    <div>
+        <lightning:combobox class="slds-size_1-of-8 selectBatchCombobox" aura:id="selectYear" value="{!v.currentYear}" placeholder="Year" options="{!v.yearOptions }" onchange="{! c.updateYearLabel }"/>
+    	<lightning:combobox class="slds-size_1-of-4 selectBatchCombobox" aura:id="selectTraining" value="{!v.trainingValue}" placeholder="Trainer" options="{!v.trainingOptions }" onchange="{!c.updateTraining}"/>
+    </div>
+   
+	
 </aura:component>
