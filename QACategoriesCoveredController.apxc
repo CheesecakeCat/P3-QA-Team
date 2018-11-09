@@ -1,0 +1,26 @@
+public class QACategoriesCoveredController {
+	@AuraEnabled
+    public static String getCategories(String Training_Id, Integer Week_Number)
+    {
+        List<Caliber_Category__c> categories = new List<Caliber_Category__c>();
+        String category_names = '';
+        Boolean first_pass = true;
+        Caliber_Assessment__c ca = [SELECT Id, Assessment_Category__c FROM Caliber_Assessment__c
+                                    WHERE Training_Id__c = :Training_Id AND Week_Number__c = :Week_Number];
+        categories = [SELECT Name FROM Caliber_Category__c WHERE Id = :ca.Assessment_Category__c];
+        
+        for(Caliber_Category__c cc : categories)
+        {
+            if(first_pass)
+            {
+            	category_names = cc.Name;
+                first_pass = false;
+            }
+            else
+            {
+                category_names += ', ' + cc.Name;
+            }
+        }
+        return category_names;
+    }
+}
