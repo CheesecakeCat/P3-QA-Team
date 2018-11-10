@@ -2,7 +2,6 @@
     /*
      * Calls the GetTraineeInfo function in the apex controller and populates the 
      * aura attribute with the returned value.
-     * *Return value is hardcoded at present*
      */
     getTrainee : function(component, event, helper) {
         /*The init function needs to populate the component with existing data*/
@@ -109,12 +108,11 @@
             component.set("v.iconLabel", "Click to update your feedback.");
             component.set("v.QCStatus", "Undefined");
         }
-        //Call recalcuateBatch to refresh the overall feedback.
     },
     /*
      * Whenever the user blurs away from the trainee note section, this function saves
      * the user's final result to the database, passing the following variables to the
-     * apex controller; 
+     * apex controller:
      * 		-The trainee's training assignment ID.
      * 		-The contents of the note section.
      * 		-The week number of the quality audit.
@@ -139,7 +137,7 @@
     /*
      * Whenever the user blurs away from the QC assessment icon, this function
      * saves the user's final selection to the database, passing the following variables
-     * to the apex controller;
+     * to the apex controller:
      * 		-The trainee's training assessment ID.
      * 		-The trainee's QC assessment value.
      * 		-The week number for the quality audit.
