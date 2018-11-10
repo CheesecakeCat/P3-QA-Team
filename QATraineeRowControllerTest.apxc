@@ -1,0 +1,80 @@
+@isTest
+public class QATraineeRowControllerTest {    
+    
+    @isTest
+    public static void testGetTraineeInfo()
+    {
+        //A set of records needs to be created here so that the id that needs to be passed
+        //to the apex controller function can be accessed below.
+        Contact trainee = new Contact(FirstName='Test', LastName='Trainee');
+        insert trainee;
+        Training__c training = new Training__c(Caliber_Number_Of_Weeks__c=1);
+        insert training;
+        Training_Assignment__c training_assignment = new Training_Assignment__c(Contact__c=trainee.Id, Training__c=training.Id, Name='Test Training Assignment');
+        insert training_assignment;
+        Caliber_Note__c caliber_note = new Caliber_Note__c(Training__c=training.Id, Contact__c=trainee.Id, QC_Status__c='Undefined', Week_Number__c=1);
+        insert caliber_note;
+        
+        Training_Assignment__c ta = QATraineeRowController.getTraineeInfo(training_assignment.Id);
+
+		System.assertEquals('Test Training Assignment', ta.Name);
+    }
+    
+    @isTest
+    public static void testGetNote()
+    {
+        Contact trainee = new Contact(FirstName='Test', LastName='Trainee');
+        insert trainee;
+        Training__c training = new Training__c(Caliber_Number_Of_Weeks__c=1);
+        insert training;
+        Training_Assignment__c training_assignment = new Training_Assignment__c(Contact__c=trainee.Id, Training__c=training.Id, Name='Test Training Assignment');
+        insert training_assignment;
+        Caliber_Note__c caliber_note = new Caliber_Note__c(Training__c=training.Id, Contact__c=trainee.Id, QC_Status__c='Undefined', Week_Number__c=1);
+        insert caliber_note;
+        
+        Caliber_Note__c cn = QATraineeRowController.getCaliberNote(training_assignment.Id, 1);
+        System.assertEquals(caliber_note.Id, cn.Id);
+    }
+    
+    @isTest
+    public static void testSaveNote()
+    {
+        //Create a Trainee record
+        Contact trainee = new Contact(FirstName='Test', LastName='Trainee');
+        insert trainee;
+        //Create a Training record
+        Training__c training = new Training__c(Caliber_Number_Of_Weeks__c=1);
+        insert training;
+        //Create a Trainging Assignment record to link the above two records
+        Training_Assignment__c training_assignment = new Training_Assignment__c(Contact__c=trainee.Id, Training__c=training.Id, Name='Test Training Assignment');
+        insert training_assignment;
+        //Create a Caliber Note record with the training and trainee ids and week number set to 1
+        Caliber_Note__c caliber_note = new Caliber_Note__c(Training__c=training.Id, Contact__c=trainee.Id, QC_Status__c='Undefined', Week_Number__c=1, Note_Content__c='Default');
+        insert caliber_note;
+        
+        QATraineeRowController.SaveTraineeNote(training_assignment.Id, 'Test Note', 1);
+        caliber_note = [SELECT Id, Note_Content__c FROM Caliber_Note__c WHERE Id = :caliber_note.Id];
+        System.assertEquals('Test Note', caliber_note.Note_Content__c);
+    }
+    
+    @isTest
+    public static void testSaveQC()
+    {
+        //Create a Trainee record
+        Contact trainee = new Contact(FirstName='Test', LastName='Trainee');
+        insert trainee;
+        //Create a Training record
+        Training__c training = new Training__c(Caliber_Number_Of_Weeks__c=1);
+        insert training;
+        //Create a Trainging Assignment record to link the above two records
+        Training_Assignment__c training_assignment = new Training_Assignment__c(Contact__c=trainee.Id, Training__c=training.Id, Name='Test Training Assignment');
+        insert training_assignment;
+        //Create a Caliber Note record with the training and trainee ids and week number set to 1
+        Caliber_Note__c caliber_note = new Caliber_Note__c(Training__c=training.Id, Contact__c=trainee.Id, QC_Status__c='Undefined', Week_Number__c=1, Note_Content__c='Default');
+        insert caliber_note;
+        
+        QATraineeRowController.SaveTraineeQC(training_assignment.Id, 'Average', 1);
+        caliber_note = [SELECT Id, QC_Status__c FROM Caliber_Note__c WHERE Id = :caliber_note.Id];
+        System.assertEquals('Average', caliber_note.QC_Status__c);
+    }
+}
