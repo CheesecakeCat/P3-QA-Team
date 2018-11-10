@@ -1,0 +1,35 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="batchTableController">
+    <ltng:require styles="/resource/fontAwesome/font-awesome-4.7.0/css/font-awesome.css"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <!-- <aura:attribute name="associates" type="Contact[]"/> Assess batch version -->
+    <aura:attribute name="associates" type="Training_Assignment__c[]"/>
+    <aura:attribute name="currentBatch" type="Training__c"/>
+    <aura:attribute name='week' type='Integer' default='1'/>
+    <aura:registerEvent name='save' type='c:saveNotes' />
+    
+    <c:QACategoriesCovered/>
+  
+    <div class="slds-grid slds-wrap">
+        <div class="slds-size_2-of-12">
+            <p style="font-weight: bold">Trainee</p>
+        </div>
+        <div class="slds-size_1-of-12">
+            <p style="font-weight: bold"></p>
+        </div> 
+        <div class="slds-size_1-of-12">
+            <p style="font-weight: bold">Feedback</p>
+        </div>
+        <div class="slds-size_8-of-12">
+        	<p style="font-weight: bold">Notes</p>
+        </div>
+    </div>
+    
+    <aura:iteration items="{!v.associates}" var="ass">
+             <!--   <c:batchTableRow associate='{!ass}' week='{!v.week}' />  Assess batch row -->
+                <c.QATraineeRow WeekNumber='{v.week}' trainingAssignmentID='{!v.associates}' /> 
+    </aura:iteration>
+    <br/>
+    
+    <c:SaveButton/>
+    
+</aura:component>
