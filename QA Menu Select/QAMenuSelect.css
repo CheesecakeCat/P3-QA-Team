@@ -1,6 +1,6 @@
 /*Aligns the combobox next to each other */
 .THIS .selectBatchCombobox {
-    display: inline-block;
+    display: inline-block;   
    /*-- padding: 7px;  */    
 }
 
@@ -11,6 +11,7 @@ div.THIS{
 /* Removes the combobox border/Sets font color*/
 .THIS .slds-combobox__input{
     border: none;
+    text-align: center;
     color: #f26925; /*Primary Revature Orange */
 }
 
