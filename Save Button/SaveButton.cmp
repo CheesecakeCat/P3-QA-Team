@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="hidden" type="Boolean" default="display:block"/>
+    <aura:attribute name="icon" Type="String" default=""/>
+    
+    <button onclick="{!c.doBurrito}" style="{!v.hidden}">
+        <span>
+            <i class="fa fa-floppy-o fa-2x"> </i>
+		</span>
+        <p style="disply:inline-block">Save</p>
+    </button>
+    	<i class="{!v.icon}"></i> 
+    
+    
+</aura:component>
