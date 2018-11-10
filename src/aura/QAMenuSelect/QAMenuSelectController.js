@@ -3,7 +3,8 @@
         var options = [];
         var action = cmp.get("c.GetAllYearsWithBatches");
         //Sets the selected value of currentYear attribute to the current year
-        cmp.set("v.currentYear",new Date().getFullYear().toString());
+        cmp.find("selectYear").set("v.value", new Date().getFullYear().toString());
+        //cmp.set("v.currentYear",new Date().getFullYear().toString());
         action.setCallback(this,function(response){
             var state = response.getState();
             if(state === "SUCCESS"){
@@ -18,22 +19,36 @@
         });
         $A.enqueueAction(action);
         //Calls a helper to set the training combobox to the year selected
-        helper.changeTrainingForYear(cmp);
-        
+        helper.buildQuartersForYear(cmp,event);        
     },
-    updateYearLabel: function (cmp, event,helper) {
+    updateTrainingLabel: function (cmp, event,helper) {
         //Refreshes the training list to the selected year
-        helper.changeTrainingForYear(cmp);
-        var yearLabel = event.getSource().get("v.value");
-        console.log(event.getParam("value"));
-        cmp.set("v.currentYear", yearLabel);
-
-
+        var label = event.getSource().get("v.value");
+        cmp.set("v.locationValue",label);
+        helper.changeTrainingForYear(cmp,event);
     },
     
+    updateQuarterLabel: function(cmp,event,helper){
+        var label = event.getSource().get("v.value");
+        cmp.set("v.currentYear",label);
+        helper.buildQuartersForYear(cmp,event);
+    },
+    
+    updateLocationLabel: function(cmp,event,helper){
+        var label = event.getSource().get("v.value");
+        cmp.set("v.currentQuarter",label);
+        helper.buildLocations(cmp,event);
+        
+    },
     //TODO: Pass value to parent app
     updateTraining: function(cmp,event,helper){
-    	var selectedOptionValue = event.getParam("value");
-        alert("Option selected with value: '" + selectedOptionValue + "'");
+        //Debug Code
+    	var label = cmp.get("v.trainingValue");
+        cmp.set("v.temp2",label);
+        var label2 = event.getParam("value");
+        //cmp.set("v.currentYear",label);
+        //cmp.set("v.temp2",label);
+        alert("Option selected with value: '" + label2 + "'");
+        //cmp.set("v.temp",event.getParam("value"));
 	}
 })
