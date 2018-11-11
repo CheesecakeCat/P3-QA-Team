@@ -5,11 +5,10 @@
     
     <button onclick="{!c.doBurrito}" style="{!v.hidden}">
         <span>
-            <i class="fa fa-floppy-o fa-2x"> </i>
+            <i class="fa fa-floppy-o slds-p-right_small"> </i>
 		</span>
-        <p style="disply:inline-block">Save</p>
+        <p style="disply:inline-block" class="saveText" >Save</p>
     </button>
-    	<i class="{!v.icon}"></i> 
-    
-    
+    	<i class="{!v.icon }"></i> 
+        
 </aura:component>
