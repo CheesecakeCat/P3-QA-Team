@@ -1,0 +1,41 @@
+public class QATraineeRowController {
+    
+	@AuraEnabled
+    public static Training_Assignment__c GetTraineeInfo(Id Training_Assignment_Id)
+    {
+        return [SELECT Id, Name, Contact__r.FirstName, Contact__r.LastName FROM Training_Assignment__c 
+                WHERE Id = :Training_Assignment_Id LIMIT 1];
+       
+    }
+    @AuraEnabled
+    public static Caliber_Note__c getCaliberNote(Id Training_Assignment_Id, Integer Week_Number)
+    {
+        Training_Assignment__c assignment = [SELECT Id, Contact__r.Id FROM Training_Assignment__c
+                      						 WHERE Id = :Training_Assignment_Id];
+        Id Trainee_Id = assignment.Contact__r.Id;
+        return [SELECT QC_Status__c, Note_Content__c FROM Caliber_Note__c 
+                WHERE Contact__c = :Trainee_Id];
+    }
+    @AuraEnabled
+    public static void SaveTraineeNote(Id Training_Assignment_Id, String Note, Integer Week_Number)
+    {
+        Training_Assignment__c assignment = [SELECT Id, Contact__r.Id FROM Training_Assignment__c
+                      						 WHERE Id = :Training_Assignment_Id];
+        Id Trainee_Id = assignment.Contact__r.Id;
+        Caliber_Note__c trainee_info = [SELECT Id, Note_Content__c FROM Caliber_Note__c 
+                                        WHERE Contact__c = :Trainee_Id AND Week_Number__c = :Week_Number];
+        trainee_info.Note_Content__c = Note;
+        update trainee_info;
+    }
+    @AuraEnabled
+    public static void SaveTraineeQC(Id Training_Assignment_Id, String Assessment, Integer Week_Number)
+    {
+        Training_Assignment__c assignment = [SELECT Id, Contact__r.Id FROM Training_Assignment__c
+                                             WHERE Id = :Training_Assignment_Id];
+        Id Trainee_Id = assignment.Contact__r.Id;
+        Caliber_Note__c trainee_info = [SELECT Id, QC_Status__c FROM Caliber_Note__c
+                                         WHERE Contact__c = :Trainee_Id AND Week_Number__c = :Week_Number];
+        trainee_info.QC_Status__c = Assessment;
+        update trainee_info;
+    }
+}
