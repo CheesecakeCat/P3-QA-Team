@@ -1,4 +1,5 @@
 ({
+    // currently, none of the buttons in the Header Bar are mapped to do anything. 
     handleClickHomeLogo: function (cmp, event) {
         // redirct to the home page
  
