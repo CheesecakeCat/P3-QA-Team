@@ -1,0 +1,59 @@
+public class QACategoriesCoveredController {
+    @AuraEnabled
+    public static String getCategories(String myTrainingID, Integer Week_Number)
+    {	// Training_Id is not being received over here 
+        List<Caliber_Category__c> categories = new List<Caliber_Category__c>();
+        List<Caliber_Assessment__c> ca = new List<Caliber_Assessment__c>();
+        List<Id> categoriesId = new List<Id>();
+        
+        String category_names = '';
+        Boolean first_pass = true; 
+        
+        if(String.isEmpty(myTrainingID)){
+            return category_names;
+        }
+        else{
+            System.debug('training id: ' + myTrainingID + '  week: '+ Week_Number);
+            Integer n = [SELECT Count() FROM Caliber_Assessment__c
+                         WHERE (Training_Id__c =:myTrainingID AND Week_Number__c =:Week_Number)];
+                       
+            ca = [SELECT Id, Assessment_Category__c FROM Caliber_Assessment__c
+                  WHERE (Training_Id__c =:myTrainingID AND Week_Number__c =:Week_Number)];
+            System.debug('caliber assessments: '+ca);               
+            
+            for(Caliber_Assessment__c cass : ca){
+                categoriesId.add(cass.Assessment_Category__c);
+            }
+            categories = [SELECT Name FROM Caliber_Category__c WHERE Id IN:categoriesId];
+            System.debug('categories: '+categories);
+            
+            Set<String> setOfStrings = new Set<String>();
+            
+            for(Caliber_Category__c cc : categories){
+                setOfStrings.add(cc.Name);
+            }
+            
+            for(String ss : setOfStrings)
+            {
+                if(first_pass)
+                {
+                    category_names = ss;
+                    first_pass = false;
+                }
+                else
+                {
+                    category_names += ', ' + ss;
+                }
+            }
+         
+            
+        return category_names;
+        }
+    }
+    
+    @AuraEnabled
+    public static void doBurrito(String myTrainingID){
+        
+        System.debug('doBurrito!! '+ myTrainingID);
+    }
+}
