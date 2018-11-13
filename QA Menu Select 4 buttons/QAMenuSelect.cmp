@@ -1,4 +1,7 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="QAController" >
+    <aura:registerEvent name="callTheBatchIDEvent" type="c:updateBatchIDEvent" />
+    <!-- <aura:handler event="c:updateBatchIDEvent" action="{!c.updateTheBatchID}" /> -->
+    
 	<aura:attribute name="yearOptions" type="List"/>
     <aura:attribute name="currentYear" type="String"/>
     <aura:attribute name="trainingList" type="Training__c[]"/>

@@ -1,7 +1,7 @@
 ({
     changeTraining : function(cmp,event){
     	var options = [];
-        console.log("change training");
+        //console.log("change training");
         //Grabs all the batches for the year selected
     	var action = cmp.get("c.getBatchesByYear");
         var year = cmp.get("v.currentYear");
@@ -15,7 +15,7 @@
                 console.log("change training " + response.getReturnValue());
                 cmp.set("v.trainingList",response.getReturnValue());
                 //Calls buildTrainingStrings to build the label and value for the combobox for trainings
-                this.buildTrainingStrings(cmp, event);
+                this.buildTrainingStrings(cmp, event);                
             }
         });
         $A.enqueueAction(action);
@@ -73,7 +73,7 @@
     
     buildLocations : function(cmp,event){
         var options = [];
-        console.log("build locations");
+        //console.log("build locations");
         //Grabs the currentYear value and currentQuarter value.
         var selectedYear = cmp.get("v.currentYear");
         var currentQuarter = cmp.get("v.currentQuarter");
@@ -118,7 +118,7 @@
             var state = response.getState();
             if(state === "SUCCESS"){
                 var allStrings = response.getReturnValue();
-                //console.log('line115 '+allStrings);
+                console.log('line115 '+allStrings);
                 var tempString =[];
                 //Splits the List of Strings into a List of List of Strings
                 for(var i = 0; i < allStrings.length;i++){
@@ -128,36 +128,44 @@
                 //Sets the Combobox: Training id as the value/Formatted trainer name and training start_date as the label
                 tempString.forEach(function(element){
                         options.push({value:element[0],label:element[1]});
-                    })
+                    });
                 	//Sets the list of trainers and starts dates
                     cmp.set("v.trainingOptions",options);
                 	//Sets the value for the selected training
                 	cmp.set("v.trainingValue",tempString[0][0]); 
                     // tempString[0][0] contains the id of the currently selected batch
-                	//console.log('line133 '+tempString[0][0]);
-                	//console.log('line134 '+cmp.get("v.trainingValue"));
+                     
+                	var getThatEvent = $A.get("e.c:updateBatchIDEvent");
+                	getThatEvent.setParams({"currentBatchID" : tempString[0][0]});
+                	getThatEvent.fire();
+                	console.log('the event has been fired!');
                 
                     // -------- gina added this here part --------
                     var action2 = cmp.get("c.findCurrentBatch");
                     var batchIdString = cmp.get("v.trainingValue");
-                    console.log('line139 helper trainingValue='+batchIdString);
+                    //console.log('line139 helper trainingValue='+batchIdString);
                     action2.setParams({"trainingValue": batchIdString});
                     action2.setCallback(this,function(response){
                         var state = response.getState();
                         if(state === "SUCCESS"){
                             var currentTraining = response.getReturnValue();
                             cmp.set("v.currentBatch",currentTraining);
-                            console.log('line 146 helper:' + currentTraining);
+                           //console.log('line 146 helper:' + currentTraining);
                         }
                     });
                    $A.enqueueAction(action2);  
                 var getTv = cmp.get("v.trainingValue");
-                console.log('line153 helper '+getTv);
+                //console.log('line153 helper '+getTv);
                 //cmp.set("v.trainingValue",getTv);   
             }
         });
         $A.enqueueAction(action);
           
+    },
+   
+    updateTheBatchID : function(component, event, helper){
+        var tempv = event.getParam("currentBatchID");
+        component.set("v.currentBatchID", tempv);
+        console.log('we are updating the batchID~! id= '+ tempv);
     }
-    
 })

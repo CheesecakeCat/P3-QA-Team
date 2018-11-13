@@ -47,9 +47,12 @@
     	var label = cmp.get("v.trainingValue");
         cmp.set("v.temp2",label);
         var label2 = event.getParam("value");
+        var appEvent = $A.get("e.c:updateBatchIDEvent");
+        appEvent.setParams({"currentBatchID" : label2});
+        appEvent.fire();
         //cmp.set("v.currentYear",label);
         //cmp.set("v.temp2",label);
-        alert("Option selected with value: '" + label2 + "'");
+        // alert("Option selected with value: '" + label2 + "'");
         //cmp.set("v.temp",event.getParam("value"));
 	}
 })
