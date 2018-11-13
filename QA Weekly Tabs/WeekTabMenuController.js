@@ -1,5 +1,7 @@
 ({
-    
+    /* DoInit runs as soon as the component is created. It is in charge of creating
+     * the necesary number of tabs that exist for the batch selected by default
+     * ******************************************************************************/
     doInit : function(cmp, evnt, hlpr){
         var action = cmp.get('c.getCurrentBatch');
         action.setCallback(this, function(response){
@@ -7,55 +9,68 @@
             // current 'Caliber Number of Weeks' field
             if(response.getState()==='SUCCESS'){
                 cmp.set('v.currentBatch',response.getReturnValue());
-                console.log(cmp.get('v.currentBatch.Caliber_Number_of_Weeks__c'));
-                console.log(cmp.get('v.currentBatch'));
                 for(let i=0;i<cmp.get('v.currentBatch.Caliber_Number_of_Weeks__c')-1;i++){
+                    // go add a tab component
                     hlpr.addTab(cmp,evnt);
                 }
+            }else {
+                throw new Error(error);
             }
         });
-        $A.enqueueAction(action);
+        $A.enqueueAction(action);        
+        
+        // action 2 is used to set the local attribute of getCurrentBatchID
+        var action2 = cmp.get('c.getCurrentBatchID');        
+        action2.setCallback(this, function(response){            
+            if(response.getState()==='SUCCESS'){
+                cmp.set('v.currentBatchID',response.getReturnValue());
+                
+            }else {
+                throw new Error(error);
+            }
+        });
+        $A.enqueueAction(action2);        
+        
     },
     
-    // Use handleActive to set the active content, see details in the helper
+    // Use handleActive to set the active content, meaning that it will 
+    // grab the selected tab and loading the content specific for that tab.
+    // See more details in the helper
     handleActive: function (cmp, event, helper) {
-        helper.handleActive(cmp, event);
+        var BatchId = cmp.get('v.currentBatchID');       
+        helper.handleActive(cmp, event, BatchId);
+        cmp.set("v.tabId","Week1");
     },
-    // Creates a new tab
-    handleAddTab: function(component, event,helper) {
-        console.log(document.getElementById('addTab').innerHTML);
+    
+    // Creates a new tab when the + labeled tab is clicked, which in turn will
+    // increment the Training's current number of weeks as well as create blank
+    // QA notes for each trainee
+    handleAddTab: function(component, event, helper) {
+        // console.log(document.getElementById('addTab').innerHTML);
         helper.addTab(component,event);
         var action = component.get('c.incrementWeek');
-        action.setParams({'currentBatch':component.get('v.currentBatch')});
+        action.setParams({batch:component.get('v.currentBatch')});
         action.setCallback(this, function(response){
             if(response.getState()==='SUCCESS'){
-                component.set('v.currentBatch',response.getReturnValue());
-                
+                component.set('v.currentBatch',response.getReturnValue());                
             }
         });
         $A.enqueueAction(action);
         
-    },
-    addContent : function(component, event) {
-        var tab = event.getSource();
-        // replace the bellow section with what we wish to add in the tab
-        /*  switch (tab.get('v.id')){
-            case 'new':
-                // Display a badge in the tab content.
-                // You can replace lightning:badge with a custom component.
-                $A.createComponent("lightning:badge", {
-                    "label": "NEW"
-                }, function (newContent, status, error) {
-                    if (status === "SUCCESS") {
-                        tab.set('v.body', newContent);
-                    } else {
-                        throw new Error(error);
-                    }
-                });
-                break;
-        } */
-    },
+    },    
     testFocus : function(component,event,helper){
         console.log('focus');
+    },
+    
+    // When the selected batch is changed in the QAMenuSelect component, this
+    // segment is in charge of catching the fired event and updating the 
+    // currentBatchID atrribute
+    handleChange : function(component,event,helper){
+        //console.log("Hello World " + event.getParam("currentBatchID"));
+        var selected = "Week1";
+        component.find("tabs").set("v.selectedTabId",selected);
+        var tempv = event.getParam("currentBatchID");
+        component.set("v.currentBatchID", tempv);
+        helper.reloadOnEventFire(component,event,helper);
     }
 })

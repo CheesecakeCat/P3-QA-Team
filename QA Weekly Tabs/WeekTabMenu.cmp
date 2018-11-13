@@ -12,9 +12,13 @@
 		and at the end we have the addTab tab. 			
         -->
     <aura:attribute name='currentBatch' type='Training__c' />
+    <aura:attribute name='currentBatchID' type='String' default="a0Df4000006UtliEAC"/>
+    <aura:attribute name="tabId" type="String" default="Week1"/>
+    <aura:handler name="change" event="c:updateBatchIDEvent" action="{!c.handleChange}"/>
     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-
-    <lightning:tabset>
+    
+	<!--Batch id is {!v.currentBatchID} -->
+    <lightning:tabset aura:id = "tabs">
         <lightning:tab class="slds-m-left_large, weekly-tab" onblur='{!c.testFocus}' onactive="{! c.handleActive }" label="Week 1" id="Week1"/>
         {!v.moretabs}
         <lightning:tab class="slds-m-left_large,slds-p-left_x-large,slds-p-right_x-large, weekly-tab" onactive="{! c.handleAddTab }" label="+" id="addTab" />
