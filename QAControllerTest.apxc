@@ -12,17 +12,13 @@ public class QAControllerTest {
         Training__c testTraining4 = new Training__c();
         //Assign the proper values for fields within the Training object.
         
-        //List<User> testTrainer = [SELECT Id FROM User Limit 1];
-   		//System.debug(testTrainer);
-      //	testTraining.Trainer__c = testTrainer.Id;
         if(testTraining == NULL){
 		
 		testTraining[0].Caliber_Number_of_Weeks__c = 5;
-        //testTraining.Training_Location_Name__c ='Reston'; Not writeable???
         testTraining[0].StartDate__c = Date.newInstance(2019, 2, 1); //Sets for January 2, 2019.
         testTraining[0].EndDate__c = Date.newInstance(2019, 2, 12);            
         }
-     //   testTraining.TrainingTrack__c = '005f4000003d0uZAAQ';
+     
      	
         testTraining1.Caliber_Number_of_Weeks__c = 5;
         testTraining1.StartDate__c = Date.newInstance(2019, 2, 1); //Sets for January 2, 2019.
@@ -99,7 +95,7 @@ public class QAControllerTest {
         
         List<String> testBatches = QAController.buildBatchStrings(allTrainings);
         
-        //System.assert(testBatches.size() == 1);
+        system.assert(testBatches.size() == 4);
         }
         
         
