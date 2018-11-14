@@ -1,5 +1,7 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="QACategoriesCoveredController">
     <!-- version 2!! -->
+    <!-- This component retrieves the categories covered that week. The actual cateogory is grabbed
+		 from the Caliber Assessments of the Training (batch) that the trainee is enrolled in --> 
     <aura:attribute name="TrainingID" type="String"/>
     <aura:attribute name="WeekNumber" type="Integer"/>    
     <aura:attribute name="categories" type="String"/>
